@@ -14,5 +14,3 @@ Run pip install:
 ```
 pip install pcdm
 ```
-
-And then run the deployment script **deploy_sqlite.py**.
