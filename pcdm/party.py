@@ -1,10 +1,8 @@
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, Date, Float, String
+from sqlalchemy import Column, Integer, Date, String
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 
-
-Base = declarative_base()
+from base import Base
 
 
 class Person(Base):
@@ -485,6 +483,30 @@ class PartyRole(Base):
         back_populates='party_role'
     )
 
+    account_party_role = relationship(
+        'AccountPartyRole',
+        primaryjoin='PartyRole.party_role_code == AccountPartyRole.party_role_code',
+        back_populates='party_role'
+    )
+
+    provider = relationship(
+        'Provider',
+        primaryjoin='PartyRole.party_role_code == Provider.party_role_code',
+        back_populates='party_role'
+    )
+
+    account_role = relationship(
+        'AccountRole',
+        primaryjoin='PartyRole.party_role_code == AccountRole.party_role_code',
+        back_populates='party_role'
+    )
+
+    agreement_role = relationship(
+        'AgreementRole',
+        primaryjoin='PartyRole.party_role_code == AgreementRole.party_role_code',
+        back_populates='party_role'
+    )
+
     def __repr__(self):
         return "<PartyRole(" \
                "party_role_name='%s', " \
@@ -568,6 +590,12 @@ class Party(Base):
     agreement_party_role = relationship(
         'AgreementPartyRole',
         primaryjoin='Party.party_id == AgreementPartyRole.party_id',
+        back_populates='party'
+    )
+
+    account_party_role = relationship(
+        'AccountPartyRole',
+        primaryjoin='Party.party_id == AccountPartyRole.party_id',
         back_populates='party'
     )
 
@@ -980,6 +1008,12 @@ class GeographicLocation(Base):
         back_populates='geographic_location'
     )
 
+    policy = relationship(
+        'Policy',
+        primaryjoin='GeographicLocation.geographic_location_id == Policy.geographic_location_id',
+        back_populates='geographic_location'
+    )
+
     def __repr__(self):
         return "<GeographicLocation(" \
                "geographic_location_type_code='%s', " \
@@ -1259,6 +1293,96 @@ class Agreement(Base):
         'AgreementPartyRole',
         primaryjoin='Agreement.agreement_id == AgreementPartyRole.agreement_id',
         back_populates='agreement'
+    )
+
+    account_agreement = relationship(
+        'AccountAgreement',
+        primaryjoin='Agreement.agreement_id == AccountAgreement.agreement_id',
+        back_populates='agreement'
+    )
+
+    policy = relationship(
+        'Policy',
+        primaryjoin='Agreement.agreement_id == Policy.agreement_id',
+        back_populates='agreement'
+    )
+
+    agency_contract = relationship(
+        'AgencyContract',
+        primaryjoin='agreement.agreement_id == AgencyContract.agreement_id',
+        back_populates='agreement'
+    )
+
+    reinsurance_agreement = relationship(
+        'ReinsuranceAgreement',
+        primaryjoin='Agreement.agreement_id == ReinsuranceAgreement.agreement_id',
+        back_populates='agreement'
+    )
+
+    commercial_agreement = relationship(
+        'CommercialAgreement',
+        primaryjoin='Agreement.agreement_id == CommercialAgreement.agreement_id',
+        back_populates='agreement'
+    )
+
+    brokerage_contract = relationship(
+        'BrokerageContract',
+        primaryjoin='Agreement.agreement_id == BrokerageContract.agreement_id',
+        back_populates='agreement'
+    )
+
+    financial_account_agreement = relationship(
+        'FinancialAccountAgreement',
+        primaryjoin='Agreement.agreement_id == FinancialAccountAgreement.agreement_id',
+        back_populates='agreement'
+    )
+
+    derivative_contract = relationship(
+        'DerivativeContract',
+        primaryjoin='Agreement.agreement_id == DerivativeContract.agreement_id',
+        back_populates='agreement'
+    )
+
+    intermediary_agreement = relationship(
+        'IntermediaryAgreement',
+        primaryjoin='Agreement.agreement_id == IntermediaryAgreement.agreement_id',
+        back_populates='agreement'
+    )
+
+    group_agreement = relationship(
+        'GroupAgreement',
+        primaryjoin='Agreement.agreement_id == GroupAgreement.agreement_id',
+        back_populates='agreement'
+    )
+
+    commutation_agreement = relationship(
+        'CommutationAgreement',
+        primaryjoin='Agreement.agreement_id == CommutationAgreement.agreement_id',
+        back_populates='agreement'
+    )
+
+    provider_agreement = relationship(
+        'ProviderAgreement',
+        primaryjoin='Agreement.agreement_id == ProviderAgreement.agreement_id',
+        back_populates='agreement'
+    )
+
+    individual_agreement = relationship(
+        'IndividualAgreement',
+        primaryjoin='Agreement.agreement_id == IndividualAgreement.agreement_id',
+        back_populates='agreement'
+    )
+
+    auto_repair_shop_contract = relationship(
+        'AutoRepairShopContract',
+        primaryjoin='Agreement.agreement_id == AutoRepairShopContract.agreement_id',
+        back_populates='agreement'
+    )
+
+    staffing_agreement = relationship(
+        'StaffingAgreement',
+        primaryjoin='Agreement.agreement_id == StaffingAgreement.agreement_id',
+        back_populates='staffing_agreement'
     )
 
     def __repr__(self):
