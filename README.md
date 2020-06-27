@@ -15,4 +15,4 @@ Run pip install:
 pip install pcdm
 ```
 
-And then run the deployment script **tests/deploy_sql.py**.
+And then run the deployment script **deploy_sql.py**.
