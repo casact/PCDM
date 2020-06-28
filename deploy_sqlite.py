@@ -1,4 +1,3 @@
-import os
 import sqlalchemy as sa
 
 from sqlalchemy.orm import sessionmaker
