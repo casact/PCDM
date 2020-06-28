@@ -977,9 +977,15 @@ class GeographicLocation(Base):
         ForeignKey('geographic_location.geographic_location_id')
     )
 
-    location_address_identifier = Column(Integer)
+    location_address_id = Column(
+        Integer,
+        ForeignKey('location_address.location_address_id')
+    )
 
-    physical_location_identifier = Column(Integer)
+    physical_location_identifier = Column(
+        Integer,
+        ForeignKey('physical_location.physical_location_id')
+    )
 
     geographic_location_parent = relationship(
         'GeographicLocation',
@@ -1011,6 +1017,24 @@ class GeographicLocation(Base):
     policy = relationship(
         'Policy',
         primaryjoin='GeographicLocation.geographic_location_id == Policy.geographic_location_id',
+        back_populates='geographic_location'
+    )
+
+    policy_amount = relationship(
+        'PolicyAmount',
+        primaryjoin='GeographicLocation.geographic_location_id == PolicyAmount.geographic_location_id',
+        back_populates='geographic_location'
+    )
+
+    location_address = relationship(
+        'LocationAddress',
+        primaryjoin='GeographicLocation.location_address_id == LocationAddress.location_address_id',
+        back_populates='geographic_location'
+    )
+
+    physical_location = relationship(
+        'PhysicalLocation',
+        primaryjoin='GeographicLocation.physical_location_id == PhysicalLocation.physical_location_id',
         back_populates='geographic_location'
     )
 
@@ -1066,6 +1090,18 @@ class InsurableObject(Base):
     insurable_object_party_role = relationship(
         'InsurableObjectPartyRole',
         primaryjoin='InsurableObject.insurable_object_id == InsurableObjectPartyRole.insurable_object_id',
+        back_populates='insurable_object'
+    )
+
+    policy_coverage_detail = relationship(
+        'PolicyCoverageDetail',
+        primaryjoin='InsurableObject.insurable_object_id == PolicyCoverageDetail.insurable_object_id',
+        back_populates='insurable_object'
+    )
+
+    policy_amount = relationship(
+        'PolicyAmount',
+        primaryjoin='InsurableObject.insurable_object_id == PolicyAmount.insurable_object_id',
         back_populates='insurable_object'
     )
 
@@ -1285,9 +1321,15 @@ class Agreement(Base):
     )
 
     agreement_type_code = Column(Integer)
+
     agreement_name = Column(String)
+
     agreement_original_inception_date = Column(Date)
-    product_identifier = Column(Integer)
+
+    product_id = Column(
+        Integer,
+        ForeignKey('product.product_id')
+    )
 
     agreement_party_role = relationship(
         'AgreementPartyRole',
@@ -1383,6 +1425,12 @@ class Agreement(Base):
         'StaffingAgreement',
         primaryjoin='Agreement.agreement_id == StaffingAgreement.agreement_id',
         back_populates='staffing_agreement'
+    )
+
+    product = relationship(
+        'Product',
+        primaryjoin='Agreement.product_id == Product.product_id',
+        back_populates='agreement'
     )
 
     def __repr__(self):
