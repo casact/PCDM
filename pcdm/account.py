@@ -489,6 +489,48 @@ class Policy(Base):
         back_populates='policy'
     )
 
+    policy_relationship = relationship(
+        'PolicyRelationship',
+        primaryjoin='Policy.policy_id == PolicyRelationship.policy_id',
+        back_populates='policy'
+    )
+
+    related_policy_relationship = relationship(
+        'PolicyRelationship',
+        primaryjoin='Policy.policy_id == PolicyRelationship.related_policy_id',
+        back_populates='policy'
+    )
+
+    policy_event = relationship(
+        'PolicyEvent',
+        primaryjoin='Policy.policy_id == PolicyEvent.policy_id',
+        back_populates='policy'
+    )
+
+    policy_coverage_part = relationship(
+        'PolicyCoveragePart',
+        primaryjoin='Policy.policy_id == PolicyCoveragePart.policy_id',
+        back_populates='policy'
+    )
+
+    policy_coverage_detail = relationship(
+        'PolicyCoverageDetail',
+        primaryjoin='Policy.policy_id == PolicyCoverageDetail.policy_id',
+        back_populates='policy'
+    )
+
+    policy_form = relationship(
+        'PolicyForm',
+        primaryjoin='Policy.policy_id == PolicyForm.policy_id',
+        back_populates='policy'
+    )
+
+    policy_amount = relationship(
+        'PolicyAmount',
+        primaryjoin='Policy.policy_id == PolicyAmount.policy_id',
+        back_populates='policy'
+    )
+
     def __repr__(self):
         return "<Policy(" \
                "agreement_id='%s', " \
