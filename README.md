@@ -7,6 +7,12 @@ SQLAlchemy implementation of [OMG Property Casualty Data Model](https://www.omg.
 
 ![](docs/pcdmcdm.png)
 
+## Distribution
+
+According to the [Object Management Group](https://www.omg.org/gettingstarted/overview.htm#Free):
+
+>Anyone can download specifications from the OMG website for free, write software implementations that conform to the specifications, and use them, give them away, or sell them. Neither OMG membership nor license is required for this.
+
 ## Installation
 
 Run pip install:
