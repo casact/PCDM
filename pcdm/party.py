@@ -507,6 +507,18 @@ class PartyRole(Base):
         back_populates='party_role'
     )
 
+    arbitration_party_role = relationship(
+        'ArbitrationPartyRole',
+        primaryjoin='PartyRole.party_role_code == ArbitrationPartyRole.party_role_code',
+        back_populates='party_role'
+    )
+
+    litigation_party_role = relationship(
+        'LitigationPartyRole',
+        primaryjoin='PartyRoleCode.party_role_code == LitigationPartyRole.party_role_code',
+        back_populates='party_role'
+    )
+
     def __repr__(self):
         return "<PartyRole(" \
                "party_role_name='%s', " \
@@ -596,6 +608,18 @@ class Party(Base):
     account_party_role = relationship(
         'AccountPartyRole',
         primaryjoin='Party.party_id == AccountPartyRole.party_id',
+        back_populates='party'
+    )
+
+    arbitration_party_role = relationship(
+        'ArbitrationPartyRole',
+        primaryjoin='Party.party_id == ArbitrationPartyRole.party_id',
+        back_populates='party'
+    )
+
+    litigation_party_role = relationship(
+        'LitigationPartyRole',
+        primaryjoin='Party.party_id == LitigationPartyRole.party_id',
         back_populates='party'
     )
 
@@ -1038,6 +1062,12 @@ class GeographicLocation(Base):
         back_populates='geographic_location'
     )
 
+    occurrence = relationship(
+        'Occurrence',
+        primaryjoin='GeographicLocation.geographic_location_id == Occurrence.geographic_location_id',
+        back_populates='geographic_location'
+    )
+
     def __repr__(self):
         return "<GeographicLocation(" \
                "geographic_location_type_code='%s', " \
@@ -1123,26 +1153,98 @@ class Claim(Base):
         primary_key=True
     )
 
-    occurrence_id = Column(Integer)
-    catastrophe_id = Column(Integer)
+    occurrence_id = Column(
+        Integer,
+        ForeignKey('occurrence.occurrence_id')
+    )
+
+    catastrophe_id = Column(
+        Integer,
+        ForeignKey('catastrophe.catastrophe_id')
+    )
+
     insurable_object_id = Column(
         Integer,
         ForeignKey('insurable_object.insurable_object_id')
     )
+
     company_claim_number = Column(Integer)
+
     company_subclaim_number = Column(Integer)
+
     claim_description = Column(String)
+
     claim_open_date = Column(Date)
+
     claim_close_date = Column(Date)
+
     claim_reopen_date = Column(Date)
+
     claim_status_code = Column(String)
+
     claim_reported_date = Column(Date)
+
     claims_made_date = Column(Date)
+
     entry_in_to_claims_made_program_date = Column(Date)
 
     insurable_object = relationship(
         'InsurableObject',
         primaryjoin='Claim.insurable_object_id == InsurableObject.insurable_object_id',
+        back_populates='claim'
+    )
+
+    occurrence = relationship(
+        'Occurrence',
+        primaryjoin='Claim.occurrence_id == Occurrence.occurrence_id',
+        back_populates='claim'
+    )
+
+    catastrophe = relationship(
+        'Catastrophe',
+        primaryjoin='Claim.catastrophe_id == Catastrophe.catastrophe_id',
+        back_populates='claim'
+    )
+
+    claim_coverage = relationship(
+        'ClaimCoverage',
+        primaryjoin='Claim.claim_id == ClaimCoverage.claim_id',
+        back_populates='claim'
+    )
+
+    claim_amount = relationship(
+        'ClaimAmount',
+        primaryjoin='Claim.claim_id == ClaimAmount.claim_id',
+        back_populates='claim'
+    )
+
+    claim_folder = relationship(
+        'ClaimFolder',
+        primaryjoin='Claim.claim_id == ClaimFolder.claim_id',
+        back_populates='claim'
+    )
+
+    arbitration_party_role = relationship(
+        'ArbitrationPartyRole',
+        primaryjoin='Claim.claim_id == ArbitrationPartyRole.claim_id',
+        back_populates='claim'
+    )
+
+    claim_litigation = relationship(
+        'ClaimLitigation',
+        primaryjoin='Claim.claim_id == ClaimLitigation.claim_id',
+        back_populates='claim'
+    )
+
+    claim_arbitration = relationship(
+        'ClaimArbitration',
+        primaryjoin='Claim.claim_id == ClaimArbitration.claim_id',
+        back_populates='claim'
+    )
+
+    litigation_party_role = relationship(
+        'LitigationPartyRole',
+        primaryjoin='Claim.claim_id == LitigationPartyRole.claim_id',
         back_populates='claim'
     )
 
