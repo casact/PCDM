@@ -374,6 +374,12 @@ class PolicyCoverageDetail(Base):
         back_populates='policy_coverage_detail'
     )
 
+    claim_coverage = relationship(
+        'ClaimCoverage',
+        primaryjoin='PolicyCoverageDetail.policy_coverage_detail_id == ClaimCoverage.policy_coverage_detail_id',
+        back_populates='policy_coverage_detail'
+    )
+
     def __repr__(self):
         return "<PolicyCoverageDetail(" \
                "effective_date='%s', " \
