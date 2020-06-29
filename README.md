@@ -29,7 +29,7 @@ The file deploy_sqlite contains a script that can be used to deploy a SQLite dat
 import sqlalchemy as sa
 
 from sqlalchemy.orm import sessionmaker
-****
+
 from base import Base
 import party, account, policy, claim
 
