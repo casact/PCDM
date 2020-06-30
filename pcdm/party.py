@@ -19,14 +19,23 @@ class Person(Base):
     )
 
     prefix_name = Column(String)
+
     first_name = Column(String)
+
     middle_name = Column(String)
+
     last_name = Column(String)
+
     suffix_name = Column(String)
+
     full_legal_name = Column(String)
+
     nickname = Column(String)
+
     birth_date = Column(Date)
+
     birth_place_name = Column(String)
+
     gender_code = Column(String)
 
     person_profession = relationship(
@@ -57,6 +66,12 @@ class Person(Base):
         'HouseholdPersonRole',
         primaryjoin='Person.person_id == HouseholdPersonRole.person_id',
         back_populates='person'
+    )
+
+    party_assessment = relationship(
+        'PartyAssessment',
+        primaryjoin='Person.person_id == PartyAssessment.person_id',
+        back_populates='party_assessment'
     )
 
     def __repr__(self):
@@ -519,6 +534,12 @@ class PartyRole(Base):
         back_populates='party_role'
     )
 
+    assessment_party_role = relationship(
+        'AssessmentPartyRole',
+        primaryjoin='PartyRole.party_role_code == AssessmentPartyRole.party_role_code',
+        back_populates='party_role'
+    )
+
     def __repr__(self):
         return "<PartyRole(" \
                "party_role_name='%s', " \
@@ -620,6 +641,18 @@ class Party(Base):
     litigation_party_role = relationship(
         'LitigationPartyRole',
         primaryjoin='Party.party_id == LitigationPartyRole.party_id',
+        back_populates='party'
+    )
+
+    assessment_party_role = relationship(
+        'AssessmentPartyRole',
+        primaryjoin='Party.party_id == AssessmentPartyRole.party_id',
+        back_populates='party'
+    )
+
+    party_assessment = relationship(
+        'PartyAssessment',
+        primaryjoin='Party.party_id == PartyAssessment.party_id',
         back_populates='party'
     )
 
@@ -1135,6 +1168,12 @@ class InsurableObject(Base):
         back_populates='insurable_object'
     )
 
+    object_assessment = relationship(
+        'ObjectAssessment',
+        primaryjoin='InsurableObject.insurable_object_id == ObjectAssessment.insurable_object_id',
+        back_populates='insurable_object'
+    )
+
     def __repr__(self):
         return "<InsurableObject(" \
                "insurable_object_type_code='%s', " \
@@ -1245,6 +1284,12 @@ class Claim(Base):
     litigation_party_role = relationship(
         'LitigationPartyRole',
         primaryjoin='Claim.claim_id == LitigationPartyRole.claim_id',
+        back_populates='claim'
+    )
+
+    claim_assessment = relationship(
+        'ClaimAssessment',
+        primaryjoin='Claim.claim_id == ClaimAssessment.claim_id',
         back_populates='claim'
     )
 
@@ -1532,6 +1577,12 @@ class Agreement(Base):
     product = relationship(
         'Product',
         primaryjoin='Agreement.product_id == Product.product_id',
+        back_populates='agreement'
+    )
+
+    agreement_assessment = relationship(
+        'AgreementAssessment',
+        primaryjoin='Agreement.agreement_id == AgreementAssessment.agreement_id',
         back_populates='agreement'
     )
 
