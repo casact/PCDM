@@ -529,6 +529,18 @@ class PartyRole(Base):
         back_populates='party_role'
     )
 
+    claim_role = relationship(
+        'ClaimRole',
+        primaryjoin='PartyRole.party_role_code == ClaimRole.party_role_code',
+        back_populates='party_role'
+    )
+
+    adjuster = relationship(
+        'Adjuster',
+        primaryjoin='PartyRole.party_role_code == Adjuster.party_role_code',
+        back_populates='party_role'
+    )
+
     def __repr__(self):
         return "<PartyRole(" \
                "party_role_name='%s', " \

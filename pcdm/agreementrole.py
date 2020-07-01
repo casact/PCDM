@@ -20,7 +20,7 @@ class Buyer(Base):
 
     provider = relationship(
         'Provider',
-        primaryjoin='Buyer.provider_id == Provider.provider_id',
+        primaryjoin='Buyer.provider_id == Providmaner.provider_id',
         back_populates='buyer'
     )
 

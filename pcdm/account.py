@@ -244,6 +244,12 @@ class Provider(Base):
         back_populates='provider'
     )
 
+    attorney = relationship(
+        'Attorney',
+        primaryjoin='Provider.provider_Id == Attorney.provider_id',
+        back_populates='provider'
+    )
+
     def __repr__(self):
         return "<Provider(" \
                "party_role_code='%s'" \
