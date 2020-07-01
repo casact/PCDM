@@ -186,7 +186,61 @@ class Provider(Base):
 
     financial_service = relationship(
         'FinancialService',
-        primaryjoin='Provider.party_role_code == FinancialService.party_role_code',
+        primaryjoin='Provider.provider_id == FinancialService.provider_id',
+        back_populates='financial_service'
+    )
+
+    agreement_role = relationship(
+        'AgreementRole',
+        primaryjoin='Provider.provider_id == AgreementRole.provider_id',
+        back_populates='agreement_role'
+    )
+
+    account_role = relationship(
+        'account_role',
+        primaryjoin='Provider.provider_id == AccountRole.provider_id',
+        back_populates='agreement_role'
+    )
+
+    buyer = relationship(
+        'Buyer',
+        primaryjoin='Provider.provider_id == Buyer.provider_id',
+        back_populates='provider'
+    )
+
+    health_care_provider = relationship(
+        'HealthCareProvider',
+        primaryjoin='Provider.provider_id == HealthCareProvider.provider_id',
+        back_populates='provider'
+    )
+
+    third_party_administrator = relationship(
+        'ThirdPartyAdministrator',
+        primaryjoin='Provider.provider_id == ThirdPartyAdministrator.provider_id',
+        back_populates='provider'
+    )
+
+    mutual_fund_provider = relationship(
+        'MutualFundProvider',
+        primaryjoin='Provider.provider_id == MutualFundProvider.provider_id',
+        back_populates='provider'
+    )
+
+    legal_adviser = relationship(
+        'LegalAdviser',
+        primaryjoin='Provider.provider_id == LegalAdviser.provider_id',
+        back_populates='provider'
+    )
+
+    contractor = relationship(
+        'Contractor',
+        primaryjoin='Provider.provider_id == Contractor.provider_id',
+        back_populates='provider'
+    )
+
+    auditor = relationship(
+        'Auditor',
+        primaryjoin='Provider.provider_id == Auditor.provider_id',
         back_populates='provider'
     )
 
@@ -206,20 +260,20 @@ class AccountRole(Base):
         primary_key=True
     )
 
-    party_role_code = Column(
+    provider_id = Column(
         String,
-        ForeignKey('party_role.party_role_code')
+        ForeignKey('provider.provider_id')
     )
 
-    party_role = relationship(
-        'PartyRole',
-        primaryjoin='AccountRole.party_role_code == PartyRole.party_role_code',
+    provider = relationship(
+        'Provider',
+        primaryjoin='AccountRole.provider_id == Provider.provider_id',
         back_populates='account_role'
     )
 
     prospect = relationship(
         'Prospect',
-        primaryjoin='AccountRole.party_role_code == Prospect.party_role_code',
+        primaryjoin='AccountRole.account_role_id == Prospect.account_role_id',
         back_populates='account_role'
     )
 
@@ -231,9 +285,9 @@ class AccountRole(Base):
 
     def __repr__(self):
         return "<AccountRole(" \
-               "party_role_code='%s'" \
+               "provider_id='%s'" \
                ")>" % (
-                   self.party_role_code
+                   self.provider_id
                 )
 
 
@@ -245,22 +299,52 @@ class AgreementRole(Base):
         primary_key=True
     )
 
-    party_role_code = Column(
-        String,
-        ForeignKey('party_role.party_role_code')
+    provider_id = Column(
+        Integer,
+        ForeignKey('provider.provider_id')
     )
 
-    party_role = relationship(
-        'PartyRole',
-        primaryjoin='AgreementRole.party_role_code == PartyRole.party_role_code',
+    provider = relationship(
+        'Provider',
+        primaryjoin='AgreementRole.provider_id == Provider.provider_id',
+        back_populates='agreement_role'
+    )
+
+    producer = relationship(
+        'Producer',
+        primaryjoin='AgreementRole.agreement_role_id == Producer.agreement_role_id',
+        back_populates='agreement_role'
+    )
+
+    supplier = relationship(
+        'Supplier',
+        primaryjoin='AgreementRole.agreement_role_id == Supplier.agreement_role_id',
+        back_populates='agreement_role'
+    )
+
+    channel_role = relationship(
+        'ChannelRole',
+        primaryjoin='AgreementRole.agreement_role_id == ChannelRole.agreement_role_id',
+        back_populates='agreement_role'
+    )
+
+    service_provider = relationship(
+        'ServiceProvider',
+        primaryjoin='AgreementRole.agreement_role_id == ServiceProvider.agreement_role_id',
+        back_populates='agreement_role'
+    )
+
+    financial_interest_role = relationship(
+        'FinancialInterestRole',
+        primaryjoin='AgreementRole.agreement_role_id == FinancialInterestRole.agreement_role_id',
         back_populates='agreement_role'
     )
 
     def __repr__(self):
         return "<AgreementRole(" \
-               "party_role_code='%s'" \
+               "provider_id='%s'" \
                ")>" % (
-                   self.party_role_code
+                   self.provider_id
                 )
 
 
@@ -272,67 +356,67 @@ class FinancialService(Base):
         primary_key=True
     )
 
-    party_role_code = Column(
-        String,
-        ForeignKey('provider.party_role_code')
+    provider_id = Column(
+        Integer,
+        ForeignKey('provider.provider_id')
     )
 
     provider = relationship(
         'Provider',
-        primaryjoin='FinancialService.party_role_code == Provider.party_role_code',
+        primaryjoin='FinancialService.provider_id == Provider.provider_id',
         back_populates='financial_service'
     )
 
     financial_adviser = relationship(
         'FinancialAdviser',
-        primaryjoin='FinancialService.party_role_code == FinancialAdviser.party_role_code',
+        primaryjoin='FinancialService.financial_service_id == FinancialAdviser.financial_service_id',
         back_populates='financial_service'
     )
 
     financial_analyst = relationship(
         'FinancialAnalyst',
-        primaryjoin='FinancialService.party_role_code == FinancialAnalyst.party_role_code',
+        primaryjoin='FinancialService.financial_service_id == FinancialAnalyst.financial_service_id',
         back_populates='financial_service'
     )
 
     account_provider = relationship(
         'AccountProvider',
-        primaryjoin='FinancialService.party_role_code == AccountProvider.party_role_code',
+        primaryjoin='FinancialService.financial_service_id == AccountProvider.financial_service_id',
         back_populates='financial_service'
     )
 
     def __repr__(self):
         return "<FinancialService(" \
-               "party_role_code='%s'" \
+               "provider_id='%s'" \
                ")>" % (
-                   self.party_role_code
+                   self.provider_id
                 )
 
 
 class FinancialAdviser(Base):
     __tablename__ = 'financial_adviser'
 
-    financial_service_id = Column(
+    financial_adviser_id = Column(
         Integer,
         primary_key=True
     )
 
-    party_role_code = Column(
-        String,
-        ForeignKey('financial_service.party_role_code')
+    financial_service_id = Column(
+        Integer,
+        ForeignKey('financial_service.financial_service_id')
     )
 
     financial_service = relationship(
-        'Provider',
-        primaryjoin='FinancialAdviser.party_role_code == FinancialService.party_role_code',
+        'Financial_service',
+        primaryjoin='FinancialAdviser.financial_service_id == FinancialService.financial_service_id',
         back_populates='financial_adviser'
     )
 
     def __repr__(self):
         return "<FinancialAdviser(" \
-               "party_role_code='%s'" \
+               "financial_service_id='%s'" \
                ")>" % (
-                   self.party_role_code
+                   self.financial_service_id
                 )
 
 
@@ -344,22 +428,22 @@ class FinancialAnalyst(Base):
         primary_key=True
     )
 
-    party_role_code = Column(
-        String,
-        ForeignKey('financial_service.party_role_code')
+    financial_service_id = Column(
+        Integer,
+        ForeignKey('financial_service.financial_service_id')
     )
 
     financial_service = relationship(
-        'Provider',
-        primaryjoin='FinancialAnalyst.party_role_code == FinancialService.party_role_code',
+        'FinancialService',
+        primaryjoin='FinancialAnalyst.financial_service_id == FinancialService.financial_service_id',
         back_populates='financial_analyst'
     )
 
     def __repr__(self):
         return "<FinancialAnalyst(" \
-               "party_role_code='%s'" \
+               "financial_service_id='%s'" \
                ")>" % (
-                   self.party_role_code
+                   self.financial_service_id
                 )
 
 
@@ -371,22 +455,22 @@ class AccountProvider(Base):
         primary_key=True
     )
 
-    party_role_code = Column(
-        String,
-        ForeignKey('financial_service.party_role_code')
+    financial_service_id = Column(
+        Integer,
+        ForeignKey('financial_service.financial_service_id')
     )
 
     financial_service = relationship(
-        'Provider',
-        primaryjoin='AccountProvider.party_role_code == FinancialService.party_role_code',
+        'FinancialService',
+        primaryjoin='AccountProvider.financial_service_id == FinancialService.financial_service_id',
         back_populates='account_provider'
     )
 
     def __repr__(self):
         return "<AccountProvider(" \
-               "party_role_code='%s'" \
+               "financial_service_id='%s'" \
                ")>" % (
-                   self.party_role_code
+                   self.financial_service_id
                 )
 
 
@@ -398,22 +482,22 @@ class Prospect(Base):
         primary_key=True
     )
 
-    party_role_code = Column(
-        String,
-        ForeignKey('account_role.party_role_code')
+    account_role_id = Column(
+        Integer,
+        ForeignKey('account_role.account_role_id')
     )
 
     account_role = relationship(
         'AccountRole',
-        primaryjoin='Prospect.party_role_code == AccountRole.party_role_code',
+        primaryjoin='Prospect.account_role_id == AccountRole.account_role_id',
         back_populates='prospect'
     )
 
     def __repr__(self):
         return "<Prospect(" \
-               "party_role_code='%s'" \
+               "account_role_id='%s'" \
                ")>" % (
-                   self.party_role_code
+                   self.account_role_id
                 )
 
 
@@ -425,14 +509,14 @@ class Customer(Base):
         primary_key=True
     )
 
-    party_role_code = Column(
-        String,
-        ForeignKey('account_role.party_role_code')
+    account_role_id = Column(
+        Integer,
+        ForeignKey('account_role.account_role_id')
     )
 
     account_role = relationship(
         'AccountRole',
-        primaryjoin='Customer.party_role_code == AccountRole.party_role_code',
+        primaryjoin='Customer.account_role_id == AccountRole.account_role_id',
         back_populates='customer'
     )
 
