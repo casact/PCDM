@@ -989,6 +989,24 @@ class StaffingAgreement(Base):
         back_populates='staffing_agreement'
     )
 
+    employment_agreement = relationship(
+        'EmploymentAgreement',
+        primaryjoin='StaffingAgreement.staffing_agreement_id == EmploymentAgreement.staffing_agreement_id',
+        back_populates='staffing_agreement'
+    )
+
+    consultant_contract = relationship(
+        'ConsultantContract',
+        primaryjoin='StaffingAgreement.staffing_agreement_id == ConsultantContract.staffing_agreement_id',
+        back_populates='staffing_agreement'
+    )
+
+    third_party_staffing_agreement = relationship(
+        'ThirdPartyStaffingAgreement',
+        primaryjoin='StaffingAgreement.staffing_agreement_id == ThirdPartyStaffingAgreement.staffing_agreement_id',
+        back_populates='staffing_agreement'
+    )
+
     def __repr__(self):
         return "<StaffingAgreement(" \
                "agreement_id='%s', " \

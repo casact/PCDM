@@ -71,7 +71,13 @@ class Person(Base):
     party_assessment = relationship(
         'PartyAssessment',
         primaryjoin='Person.person_id == PartyAssessment.person_id',
-        back_populates='party_assessment'
+        back_populates='person'
+    )
+
+    staff_position_assignment = relationship(
+        'StaffPositionAssignment',
+        primaryjoin='Person.person_id == StaffPositionAssignment.person_id',
+        back_populates='person'
     )
 
     def __repr__(self):
@@ -169,6 +175,12 @@ class Organization(Base):
     party = relationship(
         'Party',
         primaryjoin='Organization.party_id == Party.party_id',
+        back_populates='organization'
+    )
+
+    staff_position_assignment = relationship(
+        'StaffPositionAssignment',
+        primaryjoin='Organization.organization_id == StaffPositionAssignment.organization_id',
         back_populates='organization'
     )
 
@@ -538,6 +550,18 @@ class PartyRole(Base):
     adjuster = relationship(
         'Adjuster',
         primaryjoin='PartyRole.party_role_code == Adjuster.party_role_code',
+        back_populates='party_role'
+    )
+
+    staffing_organization = relationship(
+        'StaffingOrganization',
+        primaryjoin='PartyRole.party_role_code == StaffingOrganization.party_role_code',
+        back_populates='party_role'
+    )
+
+    staff = relationship(
+        'Staff',
+        primaryjoin='PartyRole.party_role_code == Staff.party_role_code',
         back_populates='party_role'
     )
 
