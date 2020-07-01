@@ -460,6 +460,7 @@ class PartyRole(Base):
     )
 
     party_role_name = Column(String)
+
     party_role_description = Column(String)
 
     staff_work_assignment = relationship(
@@ -507,18 +508,6 @@ class PartyRole(Base):
     provider = relationship(
         'Provider',
         primaryjoin='PartyRole.party_role_code == Provider.party_role_code',
-        back_populates='party_role'
-    )
-
-    account_role = relationship(
-        'AccountRole',
-        primaryjoin='PartyRole.party_role_code == AccountRole.party_role_code',
-        back_populates='party_role'
-    )
-
-    agreement_role = relationship(
-        'AgreementRole',
-        primaryjoin='PartyRole.party_role_code == AgreementRole.party_role_code',
         back_populates='party_role'
     )
 
