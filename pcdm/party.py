@@ -364,6 +364,12 @@ class Household(Base):
         back_populates='household'
     )
 
+    household_content = relationship(
+        'HouseholdContent',
+        primaryjoin='Household.household_id == HouseholdContent.household_id',
+        back_populates='household'
+    )
+
     def __repr__(self):
         return "<Household(" \
                "grouping_id='%s', " \
@@ -1238,6 +1244,48 @@ class InsurableObject(Base):
     object_assessment = relationship(
         'ObjectAssessment',
         primaryjoin='InsurableObject.insurable_object_id == ObjectAssessment.insurable_object_id',
+        back_populates='insurable_object'
+    )
+
+    vehicle = relationship(
+        'Vehicle',
+        primaryjoin='InsurableObject.insurable_object_id == Vehicle.insurable_object_id',
+        back_populates='insurable_object'
+    )
+
+    manufactured_object = relationship(
+        'ManufacturedObject',
+        primaryjoin='InsurableObject.insurable_object_id == ManufacturedObject.insurable_object_id',
+        back_populates='insurable_object'
+    )
+
+    farm_equipment = relationship(
+        'FarmEquipment',
+        primaryjoin='InsurableObject.insurable_object_id == FarmEquipment.insurable_object_id',
+        back_populates='insurable_object'
+    )
+
+    body_object = relationship(
+        'BodyObject',
+        primaryjoin='InsurableObject.insurable_object_id == BodyObject.insurable_object_id',
+        back_populates='insurable_object'
+    )
+
+    workers_comp_class = relationship(
+        'WorkersCompClass',
+        primaryjoin='InsurableObject.insurable_object_id == WorkersCompClass.insurable_object_id',
+        back_populates='insurable_object'
+    )
+
+    structure = relationship(
+        'Structure',
+        primaryjoin='InsurableObject.insurable_object_id == Structure.insurable_object_id',
+        back_populates='insurable_object'
+    )
+
+    transportation_class = relationship(
+        'TransportationClass',
+        primaryjoin='InsurableObject.insurable_object_id == TransportationClass.insurable_object_id',
         back_populates='insurable_object'
     )
 
