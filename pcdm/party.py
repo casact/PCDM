@@ -184,6 +184,30 @@ class Organization(Base):
         back_populates='organization'
     )
 
+    organization_unit = relationship(
+        'OrganizationUnit',
+        primaryjoin='Organization.organization_id == OrganizationUnit.organization_id',
+        back_populates='organization'
+    )
+
+    for_profit_organization = relationship(
+        'ForProfitOrganization',
+        primaryjoin='Organization.organization_id == ForProfitOrganization.organization_id',
+        back_populates='organization'
+    )
+
+    government_organization = relationship(
+        'GovernmentOrganization',
+        primaryjoin='Organization.organization_id == GovernmentOrganization.organization_id',
+        back_populates='organization'
+    )
+
+    not_for_profit_organization = relationship(
+        'NotForProfitOrganization',
+        primaryjoin='Organization.organization_id == NotForProfitOrganization.organization_id',
+        back_populates='organization'
+    )
+
     def __repr__(self):
         return "<Organization(" \
                "party_id='%s', " \
@@ -450,6 +474,24 @@ class Grouping(Base):
     household = relationship(
         'Household',
         primaryjoin='Grouping.grouping_id == Household.grouping_id',
+        back_populates='grouping'
+    )
+
+    professional_group = relationship(
+        'ProfessionalGroup',
+        primaryjoin='Grouping.grouping_id == ProfessionalGroup.grouping_id',
+        back_populates='grouping'
+    )
+
+    project = relationship(
+        'Project',
+        primaryjoin='Grouping.grouping_id == Project.grouping_id',
+        back_populates='grouping'
+    )
+
+    team = relationship(
+        'Team',
+        primaryjoin='Grouping.grouping_id == Team.grouping_id',
         back_populates='grouping'
     )
 
