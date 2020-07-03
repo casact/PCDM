@@ -178,6 +178,54 @@ class ClaimAmount(Base):
         back_populates='claim_amount'
     )
 
+    credit_claim_amount = relationship(
+        'CreditClaimAmount',
+        primaryjoin='ClaimAmount.claim_amount_id == CreditClaimAmount.claim_amount_id',
+        back_populates='claim_amount'
+    )
+
+    debit_claim_amount = relationship(
+        'DebitClaimAmount',
+        primaryjoin='ClaimAmount.claim_amount_id == DebitClaimAmount.claim_amount_id',
+        back_populates='claim_amount'
+    )
+
+    direct_claim_amount = relationship(
+        'DirectClaimAmount',
+        primaryjoin='ClaimAmount.claim_amount_id == DirectClaimAmount.claim_amount_id',
+        back_populates='claim_amount'
+    )
+
+    assumed_claim_amount = relationship(
+        'AssumedClaimAmount',
+        primaryjoin='ClaimAmount.claim_amount_id == AssumedClaimAmount.claim_amount_id',
+        back_populates='claim_amount'
+    )
+
+    ceded_claim_amount = relationship(
+        'CededClaimAmount',
+        primaryjoin='ClaimAmount.claim_amount_id == CededClaimAmount.claim_amount_id',
+        back_populates='claim_amount'
+    )
+
+    claim_reserve = relationship(
+        'ClaimReserve',
+        primaryjoin='ClaimAmount.claim_amount_id == ClaimReserve.claim_amount_id',
+        back_populates='claim_amount'
+    )
+
+    claim_payment = relationship(
+        'ClaimPayment',
+        primaryjoin='ClaimAmount.claim_amount_id == ClaimPayment.claim_amount_id',
+        back_populates='claim_amount'
+    )
+
+    recovery = relationship(
+        'Recovery',
+        primaryjoin='ClaimAmount.claim_amount_id == Recovery.claim_amount_id',
+        back_populates='claim_amount'
+    )
+
     def __repr__(self):
         return "<ClaimAmount(" \
                "claim_id='%s', " \

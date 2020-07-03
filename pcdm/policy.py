@@ -583,6 +583,60 @@ class PolicyAmount(Base):
         back_populates='policy_amount'
     )
 
+    premium = relationship(
+        'Premium',
+        primaryjoin='PolicyAmount.policy_amount_id == Premium.policy_amount_id',
+        back_populates='policy_amount'
+    )
+
+    tax = relationship(
+        'Tax',
+        primaryjoin='PolicyAmount.policy_amount_id == Tax.policy_amount_id',
+        back_populates='policy_amount'
+    )
+
+    surcharge = relationship(
+        'Surcharge',
+        primaryjoin='PolicyAmount.policy_amount_id == Surcharge.policy_amount_id',
+        back_populates='policy_amount'
+    )
+
+    fee = relationship(
+        'Fee',
+        primaryjoin='PolicyAmount.policy_amount_id == Fee.policy_amount_id',
+        back_populates='policy_amount'
+    )
+
+    direct_policy_amount = relationship(
+        'DirectPolicyAmount',
+        primaryjoin='PolicyAmount.policy_amount_id == DirectPolicyAmount.policy_amount_id',
+        back_populates='policy_amount'
+    )
+
+    assumed_policy_amount = relationship(
+        'AssumedPolicyAmount',
+        primaryjoin='PolicyAmount.policy_amount_id == AssumedPolicyAmount.policy_amount_id',
+        back_populates='policy_amount'
+    )
+
+    ceded_policy_amount = relationship(
+        'CededPolicyAmount',
+        primaryjoin='PolicyAmount.policy_amount_id == CededPolicyAmount.policy_amount_id',
+        back_populates='policy_amount'
+    )
+
+    credit_policy_amount = relationship(
+        'CreditPolicyAmount',
+        primaryjoin='PolicyAmount.policy_amount_id == CreditPolicyAmount.policy_amount_id',
+        back_populates='policy_amount'
+    )
+
+    debit_policy_amount = relationship(
+        'DebitPolicyAmount',
+        primaryjoin='PolicyAmount.policy_amount_id == DebitPolicyAmount.policy_amount_id',
+        back_populates='policy_amount'
+    )
+
     def __repr__(self):
         return "<PolicyAmount(" \
                "policy_id='%s', " \
