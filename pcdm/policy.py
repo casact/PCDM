@@ -104,6 +104,24 @@ class Event(Base):
         back_populates='event'
     )
 
+    business_event = relationship(
+        'BusinessEvent',
+        primaryjoin='Event.event_id == BusinessEvent.event_id',
+        back_populates='event'
+    )
+
+    life_event = relationship(
+        'LifeEvent',
+        primaryjoin='Event.event_id == LifeEvent.event_id',
+        back_populates='event'
+    )
+
+    claim_event = relationship(
+        'ClaimEvent',
+        primaryjoin='Event.event_id == ClaimEvent.event_id',
+        back_populates='event'
+    )
+
 
 class PolicyEvent(Base):
     __tablename__ = 'policy_event'
@@ -140,6 +158,54 @@ class PolicyEvent(Base):
     policy = relationship(
         'Policy',
         primaryjoin='PolicyEvent.policy_id == Policy.policy_id',
+        back_populates='policy_event'
+    )
+
+    pre_qualification = relationship(
+        'PreQualification',
+        primaryjoin='PolicyEvent.policy_event_id == PreQualification.policy_event_id',
+        back_populates='policy_event'
+    )
+
+    quote_id = relationship(
+        'Quote',
+        primaryjoin='PolicyEvent.policy_event_id == Quote.policy_event_id',
+        back_populates='policy_event'
+    )
+
+    binding = relationship(
+        'Binding',
+        primaryjoin='PolicyEvent.policy_event_id = Binding.policy_event_id',
+        back_populates='policy_event'
+    )
+
+    new_business = relationship(
+        'NewBusiness',
+        primaryjoin='PolicyEvent.policy_event_id == NewBusiness.policy_event_id',
+        back_populates='policy_event'
+    )
+
+    endorsement = relationship(
+        'Endorsement',
+        primaryjoin='PolicyEvent.policy_event_id == Endorsement.policy_event_id',
+        back_populates='policy_event'
+    )
+
+    cancel = relationship(
+        'Cancel',
+        primaryjoin='PolicyEvent.policy_event_id == Cancel.policy_event_id',
+        back_populates='policy_event'
+    )
+
+    reinstatement = relationship(
+        'Reinstatement',
+        primaryjoin='PolicyEvent.policy_event_id == Reinstatement.policy_event_id',
+        back_populates='policy_event'
+    )
+
+    renewal = relationship(
+        'Renewal',
+        primaryjoin='PolicyEvent.policy_event_id == Renewal.policy_event_id',
         back_populates='policy_event'
     )
 
