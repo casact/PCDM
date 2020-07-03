@@ -3,7 +3,7 @@ import sqlalchemy as sa
 from sqlalchemy.orm import sessionmaker
 
 from base import Base
-import party, account, policy, claim, assessment, agreementrole, claimrole, staffing, partyst, insurable
+import party, account, policy, claim, assessment, agreementrole, claimrole, staffing, partyst, insurable, money
 
 engine = sa.create_engine(
             'sqlite:///pcdm.db',
