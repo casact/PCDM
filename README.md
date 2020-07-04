@@ -13,31 +13,24 @@ According to the [Object Management Group](https://www.omg.org/gettingstarted/ov
 
 >Anyone can download specifications from the OMG website for free, write software implementations that conform to the specifications, and use them, give them away, or sell them. Neither OMG membership nor license is required for this.
 
-## Installation
 
-Run pip install:
+## Installation and Deployment
+
+This repository requires sqlalchemy, so install it if you don't have it:
 
 ```
-pip install pcdm
+pip3 install sqlalchemy
 ```
 
-## Deployment
+or
+```
+pip3 install requirements.txt
+```
 
 The file deploy_sqlite contains a script that can be used to deploy a SQLite database:
 
 ```
-import sqlalchemy as sa
-
-from sqlalchemy.orm import sessionmaker
-
-from base import Base
-import party, account, policy, claim, assessment
-import agreementrole, claimrole, staffing, partyst, insurable, money, event, product
-
-engine = sa.create_engine(
-            'sqlite:///pcdm.db',
-            echo=True
-        )
-session = sessionmaker(bind=engine)
-Base.metadata.create_all(engine)
+git clone https://github.com/genedan/PCDM
+cd PCDM
+python3 deploy_sqlite.py
 ```
