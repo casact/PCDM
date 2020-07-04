@@ -24,7 +24,7 @@ pip3 install sqlalchemy
 
 or
 ```
-pip3 install requirements.txt
+pip3 install -r requirements.txt
 ```
 
 The file deploy_sqlite contains a script that can be used to deploy a SQLite database:
