@@ -2,7 +2,7 @@ from sqlalchemy import Column, Float, Integer, Date, String, Time
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 
-from base import Base
+from pcdm.base import Base
 
 
 class Occurrence(Base):
