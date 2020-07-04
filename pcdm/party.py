@@ -1100,7 +1100,10 @@ class GeographicLocation(Base):
 
     location_number = Column(String)
 
-    state_code = Column(String)
+    state_code = Column(
+        String,
+        ForeignKey('state.state_code')
+    )
 
     parent_geographic_location_id = Column(
         Integer,
@@ -1171,6 +1174,25 @@ class GeographicLocation(Base):
     occurrence = relationship(
         'Occurrence',
         primaryjoin='GeographicLocation.geographic_location_id == Occurrence.geographic_location_id',
+        back_populates='geographic_location'
+    )
+
+    rating_territory_geographic_location = relationship(
+        'RatingTerritoryGeographicLocation',
+        primaryjoin='GeographicLocation.geographic_location_id == '
+                    'RatingTerritoryGeographicLocation.geographic_location_id',
+        back_populates='geographic_location'
+    )
+
+    state = relationship(
+        'State',
+        primaryjoin='GeographicLocation.state_code == State.state_code',
+        back_populates='geographic_location'
+    )
+
+    company_jurisdiction = relationship(
+        'CompanyJurisdiction',
+        primaryjoin='GeographicLocation.geographic_location_id == CompanyJurisdiction.geographic_location_id',
         back_populates='geographic_location'
     )
 

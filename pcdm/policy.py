@@ -13,7 +13,8 @@ class Product(Base):
         primary_key=True
     )
     line_of_business_id = Column(
-        Integer
+        Integer,
+        ForeignKey('line_of_business.line_of_business_id')
     )
 
     licensed_product_name = Column(String)
@@ -23,6 +24,18 @@ class Product(Base):
     agreement = relationship(
         'Agreement',
         primaryjoin='Product.product_id == Agreement.product_id',
+        back_populates='product'
+    )
+
+    line_of_business = relationship(
+        'LineOfBusiness',
+        primaryjoin='Product.line_of_business_id == LineOfBusiness.line_of_business_id',
+        back_populates='product'
+    )
+
+    product_coverage = relationship(
+        'ProductCoverage',
+        primaryjoin='Product.product_id == ProductCoverage.product_id',
         back_populates='product'
     )
 
@@ -314,13 +327,19 @@ class Coverage(Base):
         ForeignKey('coverage_part.coverage_part_code')
     )
 
-    coverage_type_id = Column(Integer)
+    coverage_type_id = Column(
+        Integer,
+        ForeignKey('coverage_type.coverage_type_id')
+    )
 
     coverage_name = Column(String)
 
     coverage_description = Column(String)
 
-    coverage_group_id = Column(Integer)
+    coverage_group_id = Column(
+        Integer,
+        ForeignKey('coverage_group.coverage_group_id')
+    )
 
     coverage_part = relationship(
         'CoveragePart',
@@ -337,6 +356,30 @@ class Coverage(Base):
     policy_coverage_detail = relationship(
         'PolicyCoverageDetail',
         primaryjoin='Coverage.coverage_id == PolicyCoverageDetail.coverage_id',
+        back_populates='coverage'
+    )
+
+    coverage_type = relationship(
+        'CoverageType',
+        primaryjoin='Coverage.coverage_type_id == CoverageType.coverage_type_id',
+        back_populates='coverage'
+    )
+
+    coverage_group = relationship(
+        'CoverageGroup',
+        primaryjoin='Coverage.coverage_group_id == CoverageGroup.coverage_group_id',
+        back_populates='coverage'
+    )
+
+    product_coverage = relationship(
+        'ProductCoverage',
+        primaryjoin='Coverage.coverage_id == ProductCoverage.coverage_id',
+        back_populates='coverage'
+    )
+
+    coverage_level = relationship(
+        'CoverageLevel',
+        primaryjoin='Coverage.coverage_id == CoverageLevel.coverage_id',
         back_populates='coverage'
     )
 
