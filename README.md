@@ -34,3 +34,11 @@ git clone https://github.com/genedan/PCDM
 cd PCDM
 python3 deploy_sqlite.py
 ```
+
+## PyPI
+
+This packages is also avaiable on PyPI:
+
+```
+pip3 install pcdm
+```
