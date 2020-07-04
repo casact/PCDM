@@ -3,7 +3,23 @@
 
 Property Casualty Data Model
 
-SQLAlchemy implementation of [OMG Property Casualty Data Model](https://www.omg.org/spec/PC/About-PC/)
+PCDM is a SQLAlchemy implementation of [Object Management Group's Property Casualty Data Model](https://www.omg.org/spec/PC/About-PC/). The Property Casualty Data Model is a relational database schema that closely resembles the backend of an insurance company. This package allows you to deploy a SQLite database within seconds for testing, and can be tweaked to support Postgres and other relational database systems.
+
+PCDM contains 256 tables from 13 subject area models (SAMs):
+
+1. Party - all persons, organizations, and groups involved in the insurance agreement
+2. Account and Agreement - customer, insurer, and vendor agreements
+3. Policy - policy information
+4. Claim - claim information
+5. Assessment - information pertaining to assesment (credit scoring, appraisals)
+6. Agreement Role - roles involved in agreements (providers, producers, suppliers)
+7. Claim Role - roles involved in claims (claimaints, adjusters)
+8. Staffing Role - roles involved in staffing (employees and contractors)
+9. Party Subtype - groupings and subgroupings of parties
+10. Insurable Object - things that can be insured (vehicles, structures)
+11. Money - transaction information
+12. Event - event information
+13. Product - product information (line of business, limits, coverage)
 
 ![](docs/pcdmcdm.png)
 
