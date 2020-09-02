@@ -53,7 +53,7 @@ python3 deploy_sqlite.py
 
 ## PyPI
 
-This package is also avaiable on PyPI:
+This package is also available on PyPI:
 
 ```
 pip3 install pcdm
