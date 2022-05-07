@@ -3,7 +3,7 @@
 
 Property Casualty Data Model
 
-PCDM is a SQLAlchemy implementation of [Object Management Group's Property Casualty Data Model](https://www.omg.org/spec/PC/About-PC/). The Property Casualty Data Model is a relational database schema that closely resembles the backend of an insurance company. This package allows you to deploy a SQLite database within seconds for testing, and can be tweaked to support Postgres and other relational database systems.
+PCDM is a [SQLAlchemy](https://www.sqlalchemy.org/) implementation of [Object Management Group's Property Casualty Data Model](https://www.omg.org/spec/PC/About-PC/). The Property Casualty Data Model is a relational database schema that closely resembles the backend of an insurance company. This package allows you to deploy a SQLite database within seconds for testing, and can be tweaked to support Postgres and other relational database systems.
 
 PCDM contains 256 tables from 13 subject area models (SAMs):
 
